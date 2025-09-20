@@ -20,11 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} overflow-hidden`}>
+      <body className={`${inter.className} overflow-hidden bg-gradient-to-br from-[#e0f7ff] to-[#ffffff]`}>
         <ReactQueryProvider>
-          <Theme>
+          <Theme appearance="light">            
             <NavBar />
-            <main className=''>{children}</main>
+            <main className="min-h-screen bg-gradient-to-br from-[#e0f7ff] to-[#ffffff]">{children}</main>
           </Theme>
         </ReactQueryProvider>
       </body>

@@ -1,9 +1,18 @@
-import { createIssueType } from "@/types/createIssue";
+import { IssueType } from "@/types/createIssue";
 import axiosInstance, { Response } from "./axiosInstance";
 
-export const createIssue = async (payload: createIssueType) => {
-  const res = await axiosInstance.post<Response<createIssueType>>(
-    `/api/issues`,
+export const createIssue = async (payload: IssueType) => {
+  const res = await axiosInstance.post<Response<IssueType>>(
+    "/api/issues",
+    payload
+  );
+  return res.data.data;
+};
+
+export const editeIssue = async (payload: IssueType & { id?: string }) => {
+  if (!payload.id) throw new Error("Missing issue ID for edit");
+  const res = await axiosInstance.patch<Response<IssueType>>(
+    `/api/issues/${payload.id}`,
     payload
   );
   return res.data.data;

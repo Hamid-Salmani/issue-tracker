@@ -1,24 +1,18 @@
+import { Table } from '@radix-ui/themes';
 import React from 'react';
-import { Button, Table } from '@radix-ui/themes';
-import Link from 'next/link';
-import prisma from '../../../prisma/client';
-import IssueStatusBadge from '../_elements/IssueStatusBadge';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import IssueActions from './_elements/IssueActions';
-import delay from 'delay';
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
-    await delay(2000);
-
+const LoadingIssuesPage = () => {
+  const issues = [1, 2, 3, 4, 5];
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-4xl bg-white/60 backdrop-blur-xl border border-white/30 rounded-3xl p-10 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] transition-all duration-300">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-gray-900 text-3xl font-bold tracking-tight">📋 All Issues</h2>
-          <Link href="/issues/new">
-            <IssueActions />
-          </Link>
+          <h2 className="text-gray-900 text-3xl font-bold tracking-tight">📋 Loading Issues</h2>
+          <IssueActions />
         </div>
 
         <Table.Root variant="surface" className="w-full">
@@ -31,24 +25,18 @@ const IssuesPage = async () => {
           </Table.Header>
           <Table.Body>
             {issues.map((issue) => (
-              <Table.Row key={issue.id} className="hover:bg-white/80 transition-all duration-150">
-              <Table.Cell className="text-gray-900 font-medium">
-                <Link
-                  href={`/issues/${issue.id}`}
-                  className="text-sky-600 hover:text-sky-700 hover:underline transition-colors"
-                >
-                  {issue.title}
-                </Link>
-                <div className="block md:hidden mt-1">
-                  <IssueStatusBadge status={issue.status} />
-                </div>
-              </Table.Cell>
-
-                <Table.Cell className="hidden md:table-cell">
-                  <IssueStatusBadge status={issue.status} />
+              <Table.Row key={issue} className="hover:bg-white/80 transition-all duration-150">
+                <Table.Cell>
+                  <Skeleton height={20} width="70%" />
+                  <div className="block md:hidden mt-2">
+                    <Skeleton height={16} width="40%" />
+                  </div>
                 </Table.Cell>
-                <Table.Cell className="hidden md:table-cell text-gray-600">
-                  {issue.createdAt.toDateString()}
+                <Table.Cell className="hidden md:table-cell">
+                  <Skeleton height={20} width="60%" />
+                </Table.Cell>
+                <Table.Cell className="hidden md:table-cell">
+                  <Skeleton height={20} width="50%" />
                 </Table.Cell>
               </Table.Row>
             ))}
@@ -59,4 +47,4 @@ const IssuesPage = async () => {
   );
 };
 
-export default IssuesPage;
+export default LoadingIssuesPage;
