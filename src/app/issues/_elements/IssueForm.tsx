@@ -30,7 +30,6 @@ const IssueForm = ({ issue }: { issue?: Issue | null }) => {
   } = useApiMutation<IssueType & { id?: string }, unknown>(
     issue ? editeIssue : createIssue
   );
-  console.log(isSuccess)
   const {
     register,
     handleSubmit,

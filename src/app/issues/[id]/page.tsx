@@ -1,11 +1,10 @@
-import { Button, Card, Flex, Heading, Text } from '@radix-ui/themes';
-import { notFound } from 'next/navigation';
-import React from 'react';
-import prisma from '../../../../prisma/client';
 import IssueStatusBadge from '@/app/_elements/IssueStatusBadge';
-import delay from 'delay';
+import { Button, Card, Flex, Heading, Text } from '@radix-ui/themes';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import prisma from '../../../../prisma/client';
 import SelectInput from '../_elements/SelectInput';
+import DeleteIssueButton from '../_elements/DeleteIssueButton';
 
 interface Props {
   params: { id: string };
@@ -36,9 +35,7 @@ const IssueDetailPage = async ({ params }: Props) => {
               ✏️ Edit
             </Button>
           </Link>
-          <Button variant="soft" color="red" className="rounded-xl shadow-sm !cursor-pointer">
-            🗑️ Delete
-          </Button>
+          <DeleteIssueButton issueId={issue.id} />
         </div>
       </div>
 
@@ -56,6 +53,8 @@ const IssueDetailPage = async ({ params }: Props) => {
           </Text>
         </Card>
       </div>
+
+
     </div>
   );
 };
