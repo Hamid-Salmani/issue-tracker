@@ -2,6 +2,19 @@ import { IssueSchema } from "@/app/Schemas";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 
+export async function GET(
+  request: NextRequest,
+  context: { params: { id: string } }
+) {
+  const issue = await prisma.issue.findUnique({
+    where: {
+      id: context.params.id
+    }
+  })
+  if(!issue) return NextResponse.json({error: "issue not found"}, {status: 404})
+  return NextResponse.json({issue})
+}
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -26,7 +39,7 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  request: NextRequest ,
+    request: NextRequest,
   { params }: { params: { id: string }}) {
   const issue = await prisma.issue.findUnique({
     where: {

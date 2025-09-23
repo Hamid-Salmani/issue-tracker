@@ -3,8 +3,9 @@
 import { deleteIssue } from '@/app/lib/api/issues';
 import { useApiMutation } from '@/hooks/useApiMutation';
 import { AlertDialog, Button, Flex } from '@radix-ui/themes';
-
+import  { useRouter } from 'next/navigation';
 const DeleteIssueButton = ({ issueId }: { issueId: string }) => {
+  const router = useRouter();
       const {
         mutate,
         isPending,
@@ -13,7 +14,8 @@ const DeleteIssueButton = ({ issueId }: { issueId: string }) => {
 
       const handleDelete = () => {
           mutate(issueId, {
-    onSuccess: () => {
+          onSuccess: () => {
+          router.push("/issues")
     },
   });
       }

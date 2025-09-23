@@ -1,6 +1,8 @@
 import React from 'react'
 import IssueForm from '../../_elements/IssueForm'
 import prisma from '../../../../../prisma/client'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { getIssueById } from '@/app/lib/api/issues'
 interface Props {
     params : {id: string}
 }

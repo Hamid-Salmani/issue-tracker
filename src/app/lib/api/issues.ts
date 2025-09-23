@@ -1,6 +1,12 @@
 import { IssueType } from "@/types/createIssue";
 import axiosInstance, { Response } from "./axiosInstance";
 
+export const getIssueById= async (id: string) => {
+  const res = await axiosInstance.get<Response<IssueType>>(
+    `/api/issues/${id}`
+  );
+  return res.data.data
+}
 export const createIssue = async (payload: IssueType) => {
   const res = await axiosInstance.post<Response<IssueType>>(
     "/api/issues",
