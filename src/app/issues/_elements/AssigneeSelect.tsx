@@ -1,5 +1,6 @@
 "use client";
 import { fetchUsers } from "@/app/lib/api/users";
+import { Issue, User } from "@/generated/prisma";
 import { useApiQuery } from "@/hooks/useApiQuery";
 import {
   Select,
@@ -10,9 +11,10 @@ import {
   Spinner,
   Callout,
 } from "@radix-ui/themes";
+import axios from "axios";
 import React from "react";
 
-const AssigneeSelect = () => {
+const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data, isLoading, error } = useApiQuery(["users"], fetchUsers);
 
   if (isLoading)
@@ -29,20 +31,33 @@ const AssigneeSelect = () => {
       </Callout.Root>
     );
 
-  if (!data || data.length === 0)
+  if (!data)
     return (
       <Text className="text-gray-500 text-sm mt-2">No users available</Text>
     );
 
   return (
-    <Select.Root>
+    <Select.Root
+      defaultValue={issue?.assignedToUserId ?? "unassigned"}
+      onValueChange={(userId) =>
+        axios.patch(`/api/issues/${issue.id}`, {
+          assignedToUserId: userId === "unassigned" ? null : userId,
+        })
+      }
+    >
       <Select.Trigger
         placeholder="Assign to..."
         className="bg-white/80 backdrop-blur-md border border-gray-300 rounded-xl shadow-md px-4 py-2 text-gray-800 focus:ring-2 focus:ring-sky-300"
       />
       <Select.Content className="bg-white/90 backdrop-blur-xl border border-gray-200 rounded-xl shadow-lg p-2">
         <Select.Group>
-          {data.map((user) => (
+          <Select.Item
+            value="unassigned"
+            className="rounded-lg px-3 py-2 hover:bg-sky-50 transition-all"
+          >
+            <Text className="text-gray-800 font-medium">Unassigned</Text>
+          </Select.Item>
+          {data.map((user: User) => (
             <Select.Item
               key={user.id}
               value={user.id}
@@ -51,7 +66,7 @@ const AssigneeSelect = () => {
               <Flex align="center" gap="3">
                 <Avatar
                   src={user.image ?? undefined}
-                  fallback={user.name[0].toUpperCase()}
+                  fallback={user?.name[0]?.toUpperCase()}
                   size="1"
                   radius="full"
                 />

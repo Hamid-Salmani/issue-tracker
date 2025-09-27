@@ -106,12 +106,7 @@ const IssueForm = ({ issue }: { issue?: Issue | null }) => {
             />
           </div>
 
-          <div className="flex gap-5 space-y-2">
-            <Text className="text-gray-700 font-medium pt-1">Assignee</Text>
-            <AssigneeSelect />
-          </div>
-
-          <Separator size="4" className="my-4" />
+            <Separator size="4" className="my-4" />
 
           <Button
             disabled={isPending}

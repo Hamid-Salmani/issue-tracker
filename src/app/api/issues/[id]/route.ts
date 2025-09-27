@@ -1,4 +1,4 @@
-import { IssueSchema } from "@/app/Schemas";
+import { patchIssueSchema } from "@/app/Schemas";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 
@@ -8,11 +8,12 @@ export async function GET(
 ) {
   const issue = await prisma.issue.findUnique({
     where: {
-      id: context.params.id
-    }
-  })
-  if(!issue) return NextResponse.json({error: "issue not found"}, {status: 404})
-  return NextResponse.json({issue})
+      id: context.params.id,
+    },
+  });
+  if (!issue)
+    return NextResponse.json({ error: "issue not found" }, { status: 404 });
+  return NextResponse.json({ issue });
 }
 
 export async function PATCH(
@@ -20,9 +21,17 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   const body = await request.json();
-  const validation = IssueSchema.safeParse(body);
+  const validation = patchIssueSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
+  const { assignedToUserId, title, description } = body;
+  if (assignedToUserId) {
+    const user = await prisma.user.findUnique({
+      where: { id: assignedToUserId },
+    });
+    if (!user)
+      return NextResponse.json({ error: "Invalid user" }, { status: 404 });
+  }
   const issue = await prisma.issue.findUnique({
     where: { id: params.id },
   });
@@ -31,26 +40,28 @@ export async function PATCH(
   const updatedIssue = await prisma.issue.update({
     where: { id: params.id },
     data: {
-      title: body.title,
-      description: body.description,
+      title,
+      description,
+      assignedToUserId,
     },
   });
   return NextResponse.json(updatedIssue);
 }
 
 export async function DELETE(
-    request: NextRequest,
-  { params }: { params: { id: string }}) {
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const issue = await prisma.issue.findUnique({
     where: {
-      id: params.id
-    }
-  })
-  if(!issue)  
-        return NextResponse.json({ error: 'Invalid issue'}, { status: 404 });
+      id: params.id,
+    },
+  });
+  if (!issue)
+    return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
 
   await prisma.issue.delete({
-    where: { id: issue.id }
+    where: { id: issue.id },
   });
 
   return NextResponse.json({});

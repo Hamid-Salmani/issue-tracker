@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import prisma from "../../../../prisma/client";
 import SelectInput from "../_elements/SelectInput";
 import DeleteIssueButton from "../_elements/DeleteIssueButton";
+import AssigneeSelect from "../_elements/AssigneeSelect";
 
 interface Props {
   params: { id: string };
@@ -53,8 +54,19 @@ const IssueDetailPage = async ({ params }: Props) => {
           <Text className="text-gray-600 text-sm">
             {issue.createdAt.toDateString()}
           </Text>
-          <SelectInput issue={issue} />
         </Flex>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <Text className="text-gray-700 font-medium mb-2 block">Status</Text>
+            <SelectInput issue={issue} />
+          </div>
+          <div>
+            <Text className="text-gray-700 font-medium mb-2 block">
+              Assignee
+            </Text>
+            <AssigneeSelect issue={issue} />
+          </div>
+        </div>
 
         <Card className="border border-gray-200 rounded-xl shadow-md p-6">
           <Text className="text-gray-800 leading-relaxed whitespace-pre-line text-base">

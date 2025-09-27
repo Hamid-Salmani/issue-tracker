@@ -1,5 +1,5 @@
-import { User } from "@/generated/prisma";
-import axiosInstance , {Response} from "./axiosInstance";
+import { User } from "next-auth";
+import axiosInstance, { Response } from "./axiosInstance";
 
 export const fetchUsers = async () => {
   const res = await axiosInstance.get<Response<User[]>>("/api/users");
