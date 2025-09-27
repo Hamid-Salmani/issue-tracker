@@ -1,20 +1,20 @@
-import React from 'react'
-import IssueForm from '../../_elements/IssueForm'
-import prisma from '../../../../../prisma/client'
-import { useApiQuery } from '@/hooks/useApiQuery'
-import { getIssueById } from '@/app/lib/api/issues'
+import React from "react";
+import IssueForm from "../../_elements/IssueForm";
+import prisma from "../../../../../prisma/client";
+import { useApiQuery } from "@/hooks/useApiQuery";
+import { getIssueById } from "@/app/lib/api/issues";
 interface Props {
-    params : {id: string}
+  params: { id: string };
 }
-const EditIssue = async ({params} : Props) => {
-    const issue = await prisma.issue.findUnique({
-        where: {id: params.id}
-    })
+const EditIssue = async ({ params }: Props) => {
+  const issue = await prisma.issue.findUnique({
+    where: { id: params.id },
+  });
   return (
     <div>
-        <IssueForm issue={issue}/>
+      <IssueForm issue={issue} />
     </div>
-  )
-}
+  );
+};
 
-export default EditIssue
+export default EditIssue;
