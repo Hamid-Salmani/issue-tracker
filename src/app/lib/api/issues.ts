@@ -1,12 +1,10 @@
 import { IssueType } from "@/types/createIssue";
 import axiosInstance, { Response } from "./axiosInstance";
 
-export const getIssueById= async (id: string) => {
-  const res = await axiosInstance.get<Response<IssueType>>(
-    `/api/issues/${id}`
-  );
-  return res.data.data
-}
+export const getIssueById = async (id: string) => {
+  const res = await axiosInstance.get<Response<IssueType>>(`/api/issues/${id}`);
+  return res.data.data;
+};
 export const createIssue = async (payload: IssueType) => {
   const res = await axiosInstance.post<Response<IssueType>>(
     "/api/issues",
@@ -14,7 +12,6 @@ export const createIssue = async (payload: IssueType) => {
   );
   return res.data.data;
 };
-
 export const editeIssue = async (payload: IssueType & { id?: string }) => {
   if (!payload.id) throw new Error("Missing issue ID for edit");
   const res = await axiosInstance.patch<Response<IssueType>>(
@@ -23,10 +20,10 @@ export const editeIssue = async (payload: IssueType & { id?: string }) => {
   );
   return res.data.data;
 };
-export const deleteIssue = async (id: string) =>{
+export const deleteIssue = async (id: string) => {
   if (!id) throw new Error("Missing issue ID for edit");
   const res = await axiosInstance.delete<Response<IssueType>>(
-    `/api/issues/${id}` 
+    `/api/issues/${id}`
   );
   return res.data.data;
-}
+};

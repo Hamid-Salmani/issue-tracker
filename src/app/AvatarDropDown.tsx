@@ -2,6 +2,7 @@ import { Avatar, DropdownMenu } from "@radix-ui/themes";
 import { User } from "next-auth";
 import Link from "next/link";
 import React from "react";
+import { signOut } from "next-auth/react";
 interface Props {
   user: User | undefined;
 }
@@ -18,9 +19,7 @@ const AvatarDropDown = ({ user }: Props) => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Content>
         <DropdownMenu.Label>{user!.email}</DropdownMenu.Label>
-        <DropdownMenu.Item>
-          <Link href="/api/auth/signout">Log out</Link>
-        </DropdownMenu.Item>
+        <DropdownMenu.Item onClick={() => signOut()}>Log out</DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
