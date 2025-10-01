@@ -1,5 +1,7 @@
 // src/axiosInstance.ts
+import { User } from "@/generated/prisma";
 import axios from "axios";
+import { JSX } from "react";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -30,6 +32,7 @@ axiosInstance.interceptors.request.use((config) => {
 // );
 
 export interface Response<T> {
+  map(arg0: (user: User) => JSX.Element): import("react").ReactNode;
   isSuccess: true;
   message: null;
   errors: null;

@@ -66,7 +66,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
               <Flex align="center" gap="3">
                 <Avatar
                   src={user.image ?? undefined}
-                  fallback={user?.name[0]?.toUpperCase()}
+                  fallback={user?.name![0]?.toUpperCase()}
                   size="1"
                   radius="full"
                 />
