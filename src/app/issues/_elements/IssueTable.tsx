@@ -1,5 +1,5 @@
 import IssueStatusBadge from "@/app/_elements/IssueStatusBadge";
-import { Issue } from "@/generated/prisma";
+import { Issue } from "@/generated/prisma/edge";
 import { Table } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";

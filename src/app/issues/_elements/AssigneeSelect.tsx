@@ -1,6 +1,6 @@
 "use client";
 import { fetchUsers } from "@/app/lib/api/users";
-import { Issue, User } from "@/generated/prisma";
+import { Issue, User } from "@/generated/prisma/edge";
 import { useApiQuery } from "@/hooks/useApiQuery";
 import {
   Select,

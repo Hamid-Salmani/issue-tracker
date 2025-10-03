@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 import { IssueSchema } from "@/app/Schemas";
+export const runtime = "nodejs";
 
 export async function GET() {
   const issues = await prisma.issue.findMany()

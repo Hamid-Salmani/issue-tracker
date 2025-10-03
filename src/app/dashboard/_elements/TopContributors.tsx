@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import prisma from "../../../../prisma/client";
+export const runtime = "nodejs";
 
 const TopContributors = async () => {
   const issues = await prisma.issue.findMany({

@@ -1,5 +1,5 @@
 // src/axiosInstance.ts
-import { User } from "@/generated/prisma";
+import { User } from "@/generated/prisma/edge";
 import axios from "axios";
 import { JSX } from "react";
 

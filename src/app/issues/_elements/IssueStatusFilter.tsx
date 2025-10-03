@@ -1,6 +1,6 @@
 "use client";
 
-import { Status } from "@/generated/prisma";
+import { Status } from "@/generated/prisma/edge";
 import { Select } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import React from "react";

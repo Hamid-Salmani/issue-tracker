@@ -19,7 +19,7 @@ import { IssueSchema } from "@/app/Schemas";
 import { z } from "zod";
 import Spinner from "@/app/_elements/Spinner";
 import Link from "next/link";
-import { Issue } from "@/generated/prisma";
+import { Issue } from "@/generated/prisma/edge";
 import AssigneeSelect from "./AssigneeSelect";
 
 type IssueFormData = z.infer<typeof IssueSchema>;
@@ -106,7 +106,7 @@ const IssueForm = ({ issue }: { issue?: Issue | null }) => {
             />
           </div>
 
-            <Separator size="4" className="my-4" />
+          <Separator size="4" className="my-4" />
 
           <Button
             disabled={isPending}

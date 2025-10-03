@@ -6,6 +6,7 @@ import prisma from "../../../../prisma/client";
 import SelectInput from "../_elements/SelectInput";
 import DeleteIssueButton from "../_elements/DeleteIssueButton";
 import AssigneeSelect from "../_elements/AssigneeSelect";
+export const runtime = "nodejs";
 
 interface Props {
   params: { id: string };

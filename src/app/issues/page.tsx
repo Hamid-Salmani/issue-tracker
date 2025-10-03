@@ -1,4 +1,4 @@
-import { Status } from "@/generated/prisma";
+import { Status } from "@/generated/prisma/edge";
 import { Table } from "@radix-ui/themes";
 import Link from "next/link";
 import prisma from "../../../prisma/client";

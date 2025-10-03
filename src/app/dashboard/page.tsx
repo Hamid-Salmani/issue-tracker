@@ -3,6 +3,7 @@ import prisma from "../../../prisma/client";
 import BarChart from "./_elements/BarChart";
 import LatestIssues from "./_elements/LatestIssues";
 import TopContributors from "./_elements/TopContributors";
+export const runtime = "nodejs";
 
 const page = async () => {
   const open = await prisma.issue.count({ where: { status: "OPEN" } });
