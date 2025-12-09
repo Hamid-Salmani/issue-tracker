@@ -62,21 +62,21 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> } // تایپ جدید: params به عنوان Promise
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const resolvedParams = await params; // await برای resolve کردن Promise
+  const resolvedParams = await params;
   const id = resolvedParams.id;
 
   const issue = await prisma.issue.findUnique({
     where: {
-      id, // حالا id در
+      id,
     },
   });
   if (!issue)
     return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
 
   await prisma.issue.delete({
-    where: { id }, // حالا id در دسترسه (یا می‌تونید از issue.id استفاده کنید)
+    where: { id },
   });
 
   return NextResponse.json({});
